@@ -32,7 +32,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.ussd.MainClass</mainClass>
+                            <mainClass>org.ussd.MainClass.java</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
