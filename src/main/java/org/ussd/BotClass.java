@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.*;
+
 public class BotClass extends TelegramLongPollingBot {
 
     @Override
@@ -38,6 +40,20 @@ public class BotClass extends TelegramLongPollingBot {
             if(text.equals("/start")) send_message("Salom " + from.getFirstName(), update);
             if(text.equalsIgnoreCase("whoami")) send_message(from.getFirstName() +
                     " " + from.getLastName(), update);
+            if(text.equals("cont")){
+                try {
+                    InputStream is = Runtime.getRuntime().exec("uptime -p").getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader br = new BufferedReader(isr);
+                    text = br.readLine();
+                    is.close();
+                    isr.close();
+                    br.close();
+                    send_message(text, update);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
