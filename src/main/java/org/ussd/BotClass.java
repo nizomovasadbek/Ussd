@@ -36,6 +36,8 @@ public class BotClass extends TelegramLongPollingBot {
         String text = update.getMessage().getText();
         if(update.hasMessage() && update.getMessage().hasText()){
             if(text.equals("/start")) send_message("Salom " + from.getFirstName(), update);
+            if(text.equalsIgnoreCase("whoami")) send_message(from.getFirstName() +
+                    " " + from.getLastName()==null?"":from.getLastName(), update);
         }
     }
 
