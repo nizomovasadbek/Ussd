@@ -24,7 +24,7 @@ public class BotClass extends TelegramLongPollingBot {
         msg.setChatId(update.getMessage().getChatId().toString());
         try{
             execute(msg);
-        }catch(TelegramApiException e){
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
