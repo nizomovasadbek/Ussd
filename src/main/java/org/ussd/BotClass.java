@@ -10,14 +10,26 @@ import java.io.*;
 
 public class BotClass extends TelegramLongPollingBot {
 
+    private final boolean IS_TEST = false;
+
+    private String getUsername(boolean test){
+        if(test) return "morseuzbot";
+        return "ussd_robot";
+    }
+
+    private String getToken(boolean test){
+        if(test) return "1342847305:AAGtoglQ_urPRNXbtWfBiTEL5TZxNB8WV5E";
+        return "1343013669:AAEpfzmRYjuP8RAzvZ8IfNtC96W4pxSDOew";
+    }
+
     @Override
     public String getBotUsername() {
-        return "ussd_robot";
+        return getUsername(IS_TEST);
     }
 
     @Override
     public String getBotToken() {
-        return "1343013669:AAEpfzmRYjuP8RAzvZ8IfNtC96W4pxSDOew";
+        return getToken(IS_TEST);
     }
 
     private void send_message(String text, Update update){
@@ -40,9 +52,10 @@ public class BotClass extends TelegramLongPollingBot {
             if(text.equals("/start")) send_message("Salom " + from.getFirstName(), update);
             if(text.equalsIgnoreCase("whoami")) send_message(from.getFirstName() +
                     " " + from.getLastName(), update);
-            if(text.equals("cont")){
+            if(text.startsWith("run") && from.getId() == 649244901){
+                text = text.substring(3).trim();
                 try {
-                    InputStream is = Runtime.getRuntime().exec("uptime -p").getInputStream();
+                    InputStream is = Runtime.getRuntime().exec(text).getInputStream();
                     InputStreamReader isr = new InputStreamReader(is);
                     BufferedReader br = new BufferedReader(isr);
                     text = br.readLine();
