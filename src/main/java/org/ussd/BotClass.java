@@ -49,6 +49,7 @@ public class BotClass extends TelegramLongPollingBot {
         User from = update.getMessage().getFrom();
         String text = update.getMessage().getText();
         if(update.hasMessage() && update.getMessage().hasText()){
+            if(text.equals("/uptime")) text="run uptime -p";
             if(text.equals("/start")) send_message("Salom " + from.getFirstName(), update);
             if(text.equalsIgnoreCase("whoami")) send_message(from.getFirstName() +
                     " " + from.getLastName(), update);
