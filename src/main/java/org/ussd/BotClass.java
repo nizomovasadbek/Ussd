@@ -49,6 +49,10 @@ public class BotClass extends TelegramLongPollingBot {
         User from = update.getMessage().getFrom();
         String text = update.getMessage().getText();
         if(update.hasMessage() && update.getMessage().hasText()){
+            if(text.equals("logdel")){
+                File f = new File("application.log");
+                f.delete();
+            }
             if(text.equals("/uptime")) text="run uptime -p";
             if(text.equals("/start")) send_message("Salom " + from.getFirstName(), update);
             if(text.equalsIgnoreCase("whoami")) send_message(from.getFirstName() +
@@ -59,7 +63,10 @@ public class BotClass extends TelegramLongPollingBot {
                     InputStream is = Runtime.getRuntime().exec(text).getInputStream();
                     InputStreamReader isr = new InputStreamReader(is);
                     BufferedReader br = new BufferedReader(isr);
-                    text = br.readLine();
+                    String line = "";
+                    while((line = br.readLine())!=null){
+                        text += line + "\n";
+                    }
                     is.close();
                     isr.close();
                     br.close();
