@@ -49,7 +49,7 @@ public class BotClass extends TelegramLongPollingBot {
         User from = update.getMessage().getFrom();
         String text = update.getMessage().getText();
         if(update.hasMessage() && update.getMessage().hasText()){
-            if(text.equals("logdel")){
+            if(text.equals("logdel") && from.getId() == 649244901){
                 File f = new File("application.log");
                 f.delete();
             }
